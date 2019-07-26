@@ -11,8 +11,8 @@ import { View,StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { smsActions } from '../store/actions';
-import { HomeScreenUpperSection } from '../loaders/HomeScreen';
-import { HomeHeaderPart,HomeContentPart } from '../components/HomeScreen';
+import { HomeScreenUpperSection } from '../loaders/HomeScreenLoader';
+import { HomeHeaderPart,HomeContentPart } from '../components/HomeScreenComponents';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {

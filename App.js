@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, Component} from 'react';
 import { Provider } from 'react-redux';
 import { StatusBar,PermissionsAndroid,Alert,Platform } from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
@@ -18,8 +18,14 @@ const TabNavigator = createStackNavigator({
 
 const Navigation = createAppContainer(TabNavigator);
 
-export default class App extends React.Component {
+export default class App extends Component<{}> {
 
+constructor(props){
+	super(props);
+	this.state={
+		permissionGranted:false
+	}
+}	
  componentDidMount = () => { 
  	
  	 async function requestSmsPermission() {
@@ -35,7 +41,7 @@ export default class App extends React.Component {
 		      },
 		    );
 		    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-		      console.log('You can read the sms');
+		      this.setState({permissionGranted:true});
 		    } else {
 		      console.log('sms permission denied');
 		    }
@@ -60,7 +66,7 @@ export default class App extends React.Component {
       <Provider store={store}>
 	      <Fragment>
 		      <StatusBar barStyle="dark-content" />
-		      <Navigation />
+		      {(this.state.permissionGranted)?<Navigation />:null}
 	      </Fragment>  
       </Provider>
     );
