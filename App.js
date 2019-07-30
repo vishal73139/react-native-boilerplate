@@ -18,17 +18,7 @@ const TabNavigator = createStackNavigator({
 
 const Navigation = createAppContainer(TabNavigator);
 
-export default class App extends Component<{}> {
-
-constructor(props){
-	super(props);
-	this.state={
-		permissionGranted:false
-	}
-}	
- componentDidMount = () => { 
- 	
- 	 async function requestSmsPermission() {
+async function requestSmsPermission(){
 		  try {
 		    const granted = await PermissionsAndroid.request(
 		      PermissionsAndroid.PERMISSIONS.READ_SMS,
@@ -40,23 +30,43 @@ constructor(props){
 		        buttonPositive: 'OK',
 		      },
 		    );
-		    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-		      this.setState({permissionGranted:true});
-		    } else {
-		      console.log('sms permission denied');
-		    }
+		    return granted === PermissionsAndroid.RESULTS.GRANTED;
 		  } catch (err) {
-		    console.warn(err);
+		   return false; 
 		  }
 		}
 
-	if (Platform.OS === 'android') {
-        //Calling the permission function
-        requestSmsPermission();
+export default class App extends Component<{}> {
+
+constructor(props){
+	super(props);
+	this.state={
+		permissionGranted:false
+	}
+ 
+}	
+ componentDidMount = () => { 
+    var homeScreenThis = this;
+	if (Platform.OS === 'android') { 
+        requestSmsPermission().then(function(didGetPermission: boolean){
+        	if (didGetPermission) 
+        	{
+        		homeScreenThis.permissionGranted(true);
+        	}
+        	else
+        	{
+        		homeScreenThis.permissionGranted(false);
+        	}
+
+        });
     }else{
         alert('IOS device found');
     }	
 
+ }
+
+ permissionGranted = (value) => {
+ 	this.setState({permissionGranted:value});
  }
 
 

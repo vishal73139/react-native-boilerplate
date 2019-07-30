@@ -7,12 +7,14 @@
  */
 
 import React, {Fragment} from 'react';
-import { View,StyleSheet } from 'react-native'; 
+import { View,StyleSheet,Text } from 'react-native'; 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { smsActions } from '../store/actions';
+import moment from 'moment';
 import { HomeScreenUpperSection } from '../loaders/HomeScreenLoader';
-import { HomeHeaderPart,HomeContentPart } from '../components/HomeScreenComponents';
+import HeaderPart from '../components/HomeScreenComponents/HeaderPart'; 
+import ContentPart from '../components/HomeScreenComponents/ContentPart';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,16 +25,18 @@ class HomeScreen extends React.Component {
     super(props);
   }
 
-  componentDidMount(){
-    this.props.smsActions();
+  componentDidMount(){ 
+    let firstDateOfMonth = moment().startOf('month').format("YYYY-MM-DD"); 
+    this.props.smsActions(firstDateOfMonth);
   }
+ 
 
   render() {
     const {navigate} = this.props.navigation;
     return (
       <Fragment>
         {
-          (this.props.smsDataLoading)?<HomeScreenUpperSection />:<View style={{flex:1,backgroundColor:'#282828'}}><HomeHeaderPart/><HomeContentPart/></View>
+          (this.props.smsDataLoading)?<HomeScreenUpperSection />:<View style={styles.mainView}><HeaderPart messages={this.props.all_data}/><ContentPart messages={this.props.all_data}/></View>
         }
       </Fragment>
     );
@@ -42,46 +46,24 @@ class HomeScreen extends React.Component {
 const styles = StyleSheet.create({ 
   mainView: {
     flex:1,backgroundColor:'#282828',
-  },
-  mainScreenUpperView: {
-    borderBottomLeftRadius:20,borderBottomRightRadius:20,flex:1,backgroundColor:'#F55044',paddingLeft:30,paddingTop:30,
-  },
-  mainScreenUpperViewText:{
-    color:'#fff',
-    fontSize:18
-  },
-  mainScreenUpperViewMoney:{
-     color:'#fff',
-    fontSize:40,
-    marginTop:10
-  },
-  circle: {
-    width: 50,
-    height: 50,
-    borderRadius: 50/2,
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    justifyContent: 'center',
-    alignItems: 'center'
-},
-innercircle:{
-  width: 50,
-    height: 50,
-    borderRadius: 50/2,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center'
-}
+  }
 });
 
+
 function mapStateToProps(state) {
-  return { smsDataLoading: state.smsData.is_loading }
+  return { smsDataLoading: state.smsData.is_loading,all_data:state.smsData.all_messages }
 }
 
-const actionCreators = {
-    smsActions: smsActions.loadSms
+const mapDispatchToProps = dispatch => {
+    return {
+      smsActions: (month) => {  
+        dispatch(smsActions.loadSms(month));
+      }
+    }
 }
+ 
 
 export default connect(
   mapStateToProps,
-  actionCreators
+  mapDispatchToProps
 )(HomeScreen);

@@ -1,13 +1,19 @@
 import React, {Fragment} from 'react';
 import {View,Text,StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import _ from "lodash";
 
-export default HomeScreenHeaderPart = () => {
+export default HomeScreenHeaderPart = (props) => {
+  let rsKey = ['messageMoney'];
+  var totalCount = _.sumBy(rsKey, _.partial(_.sumBy, props.messages));
+
+console.log(totalCount);
+
 	return (
 	<View style={styles.mainScreenUpperView}>
 
         <Text style={styles.mainScreenUpperViewText}>Money Spent</Text>
-        <Text style={styles.mainScreenUpperViewMoney}><Icon name="rupee" size={40} color="#fff"></Icon> 5,400</Text>
+        <Text style={styles.mainScreenUpperViewMoney}><Icon name="rupee" size={40} color="#fff"></Icon> {totalCount}</Text>
 
         <View style={{flex: 1, flexDirection: 'row',marginTop:20}}>
           
@@ -15,9 +21,9 @@ export default HomeScreenHeaderPart = () => {
             <View style={styles.circle}>
               <Icon name="arrow-up" size={20} color="#fff" regular></Icon>
             </View>
-            <View style={{alignItems: 'center'}}>
-              <Text style={{color:'#fff', marginTop:0,marginLeft:5,fontSize:20,fontWeight:'bold'}}><Icon name="rupee" size={15} color="#fff"></Icon> 7,400</Text>
-              <Text style={{color:'#fff'}}>PAY</Text>
+            <View>
+              <Text style={{color:'#fff', marginTop:5,marginLeft:5,fontSize:15,fontWeight:'bold',alignItems: 'center'}}><Icon name="rupee" size={15} color="#fff"></Icon> {totalCount}</Text>
+              <Text style={{color:'#fff',marginLeft:10}}>Paid</Text>
             </View>
           </View>
 
@@ -25,9 +31,9 @@ export default HomeScreenHeaderPart = () => {
             <View style={styles.circle}>
                 <Icon name="arrow-down" size={20} color="#fff" regular></Icon>
             </View>
-             <View style={{alignItems: 'center'}}>
-                <Text style={{color:'#fff', marginTop:0,marginLeft:5,fontSize:20,fontWeight:'bold'}}><Icon name="rupee" size={20} color="#fff"></Icon> 2,000</Text>
-                <Text style={{color:'#fff',marginLeft:5}}>RECEIVE</Text>
+             <View>
+                <Text style={{color:'#fff', marginTop:5,marginLeft:5,fontSize:15,fontWeight:'bold'}}><Icon name="rupee" size={15} color="#fff"></Icon> 0</Text>
+                <Text style={{color:'#fff',marginLeft:10}}>Received</Text>
               </View>
             </View>
         </View>  

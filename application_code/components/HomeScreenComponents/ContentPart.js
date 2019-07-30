@@ -1,141 +1,40 @@
 import React, {Fragment} from 'react';
-import {View,Text,StyleSheet,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,ScrollView,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import _ from "lodash";
 
-export default HomeScreenContentPart = () => {
-	return (
+
+export default HomeScreenContentPart = (props) => {
+  let isDateChanged = 0;
+  let showDate = '';
+return (
 	<View style={{flex:3}}>
-      <ScrollView style={{paddingLeft:10,paddingRight:20}}>
-          <View style={{marginTop:20}}>
-          <Text style={{color:'#ccc',fontWeight:'bold',fontSize:20}}> Today </Text>
-            <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="paypal" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Paypal</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>12.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'green'}}> + 2,000</Text>
-                </View>
-            </View>
+      <ScrollView style={{paddingLeft:10,paddingRight:20}}> 
+          {
+            _.map(props.messages,(message)=>{ 
+              isDateChanged = (showDate != message.messageTime)?true:false;
+              showDate = message.messageTime;
+              return (<View>
+                {(isDateChanged)?<Text style={{marginTop:20,fontSize:20,fontWeight:'bold',color:'#ccc'}}>{showDate}</Text>:null}
+                {(message.messageMoney > 0)?<TouchableOpacity style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
+                    <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
+                      <View style={styles.innercircle}>
+                        <Text style={{fontSize:20,color:'#fff',fontWeight:'bold'}}>{message.messageSender.substring(0, 1).toUpperCase()}</Text>
+                      </View>
+                      <View>
+                        <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>{message.messageSender.toUpperCase()}</Text>
+                        <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>{message.messageOnlyTime}</Text>
+                      </View>
+                    </View>
+                     <View style={{flex:1,alignItems: 'center'}}>
 
-             <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="amazon" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Amazon</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>1.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'red'}}> - 1,000</Text>
-                </View>
-            </View>
-
-            <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="apple" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Apple</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>5.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'red'}}> - 2,000</Text>
-                </View>
-            </View>
-
-             <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="car" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Ola</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>1.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'green'}}> + 2,000</Text>
-                </View>
-            </View>
-
-          </View>
-
-
-          <View style={{marginTop:20}}>
-          <Text style={{color:'#ccc',fontWeight:'bold',fontSize:20}}> 24th July </Text>
-            <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="paypal" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Paypal</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>12.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'green'}}> + 2,000</Text>
-                </View>
-            </View>
-
-             <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="amazon" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Amazon</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>1.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'red'}}> - 1,000</Text>
-                </View>
-            </View>
-
-            <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="apple" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Apple</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>5.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'red'}}> - 2,000</Text>
-                </View>
-            </View>
-
-             <View style={{backgroundColor:'#343434',height:80,marginTop:10,borderRadius:20,justifyContent: 'center',alignItems: 'center',flexDirection: 'row'}}>
-                <View style={{flex:2,marginLeft:5,flexDirection: 'row',alignItems: 'center'}}>
-                  <View style={styles.innercircle}>
-                    <Icon name="car" size={20} color="#fff" regular></Icon>
-                  </View>
-                  <View>
-                    <Text style={{color:'#fff', marginTop:0,marginLeft:10,fontSize:18,fontWeight:'bold'}}>Ola</Text>
-                    <Text style={{color:'#fff', marginTop:5,marginLeft:10,fontSize:10,fontWeight:'bold'}}>1.08 AM</Text>
-                  </View>
-                </View>
-                 <View style={{flex:1,alignItems: 'center'}}>
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'green'}}> + 2,000</Text>
-                </View>
-            </View>
-
-          </View>
-
-
+                      <Text style={(message.messageType == 'Paid')?{fontSize:18,fontWeight:'bold',color:'white'}:{fontSize:18,fontWeight:'bold',color:'green'}}> <Icon name="rupee" size={20} color={(message.messageType == 'Paid')?"white":"green"}></Icon> {message.messageMoney} </Text>
+                    </View>
+                </TouchableOpacity>:null}
+                </View>);
+              
+            })
+          } 
           </ScrollView>
       </View>);
 }
