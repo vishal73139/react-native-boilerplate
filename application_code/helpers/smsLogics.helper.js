@@ -1,6 +1,7 @@
 import _ from "lodash";
 
-const fixedPaidMessageType = ["Paid","You've spent"," debited"];
+const fixedPaidMessageType = ["Paid","You've spent","debited","Thank you for using","Accepted your request"];
+const fixedPaidMessageNoHaveConditionType = ["requested","failed","fail","claim","gift"];
 
 const checkPaidStringInMessage = (message) => {
 	let changeMessage = message.toLowerCase();
@@ -8,14 +9,22 @@ const checkPaidStringInMessage = (message) => {
 	let checkAllConditions = _.map(fixedPaidMessageType,function(findString){
 
 								 if(findString == 'Paid' || findString == 'debited')
-								 {
+								 { 
 								 	let strStatus = _.includes(splitWithWords,findString.toLowerCase());
-								 	if(strStatus){ return true; }	
+								 	if(strStatus)
+								 	{ 
+								 		let notRequiredWords = _.intersection(splitWithWords, fixedPaidMessageNoHaveConditionType);
+								 		return (notRequiredWords.length > 0)?false:true;
+								 	}	
 								 }
 								 else
 								 {
 								 	let strStatus = (changeMessage.match(findString.toLowerCase()) == findString.toLowerCase())?true:false;
-								 	if(strStatus){ return true; }
+								 	if(strStatus)
+								 	{ 
+								 		let notRequiredWords = _.intersection(splitWithWords, fixedPaidMessageNoHaveConditionType);
+								 		return (notRequiredWords.length > 0)?false:true; 
+								 	}
 								 }
 								 
 							});

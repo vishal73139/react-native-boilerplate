@@ -8,7 +8,7 @@ export default HomeScreenContentPart = (props) => {
   let isDateChanged = 0;
   let showDate = '';
 return (
-	<View style={{flex:3}}>
+	<View style={{flex:4}}>
       <ScrollView style={{paddingLeft:10,paddingRight:20}}> 
           {
             _.map(props.messages,(message)=>{ 

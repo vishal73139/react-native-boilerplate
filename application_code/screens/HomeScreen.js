@@ -33,10 +33,11 @@ class HomeScreen extends React.Component {
 
   render() {
     const {navigate} = this.props.navigation;
+    const currentMonth = moment().startOf('month').format('MMMM');
     return (
       <Fragment>
         {
-          (this.props.smsDataLoading)?<HomeScreenUpperSection />:<View style={styles.mainView}><HeaderPart messages={this.props.all_data}/><ContentPart messages={this.props.all_data}/></View>
+          (this.props.smsDataLoading)?<HomeScreenUpperSection />:<View style={styles.mainView}><HeaderPart messages={this.props.all_data} currentMonth={currentMonth}/><ContentPart messages={this.props.all_data}/></View>
         }
       </Fragment>
     );

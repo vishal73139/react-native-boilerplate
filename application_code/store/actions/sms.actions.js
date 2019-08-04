@@ -28,6 +28,7 @@ function loadSms(comingMonth) {
 	    (count, smsList) => { 
 	    	var arr = JSON.parse(smsList);
 	    	var onlyPaidAndReceivedMessageLists = [];
+	    	console.log(arr);
 	    	_.map(arr,function(data){
 	    		let usedMessageStack = {messageType:'',messageData:'',messageTime:'',messageTimeStamp:0,messageOnlyTime:'',messageSender:'',messageMoney:0};
 	    		let isPaidMessage = readPaidMessage(data.body);
