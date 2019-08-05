@@ -1,22 +1,14 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Fragment} from 'react';
 import { View,StyleSheet,Text } from 'react-native'; 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { smsActions } from '../store/actions';
+import { creditCardSmsActions } from '../store/actions';
 import moment from 'moment';
 import { HomeScreenUpperSection } from '../loaders/HomeScreenLoader';
-import HeaderPart from '../components/HomeScreen/HeaderPart'; 
-import ContentPart from '../components/HomeScreen/ContentPart';
+import HeaderPart from '../components/CreditCardScreen/HeaderPart'; 
+import ContentPart from '../components/CreditCardScreen/ContentPart';
 
-class HomeScreen extends React.Component {
+class CreditCardScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',
   };
@@ -26,6 +18,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount(){ 
+    alert('test');
     let firstDateOfMonth = moment().startOf('month').format("YYYY-MM-DD"); 
     this.props.smsActions(firstDateOfMonth);
   }
@@ -52,13 +45,13 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-  return { smsDataLoading: state.smsData.is_loading,all_data:state.smsData.all_messages }
+  return { smsDataLoading: state.creditCardData.is_loading,all_data:state.creditCardData.all_messages }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
       smsActions: (month) => {  
-        dispatch(smsActions.loadSms(month));
+        dispatch(creditCardSmsActions.loadCreditCardSms(month,month));
       }
     }
 }
@@ -67,4 +60,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeScreen);
+)(CreditCardScreen);

@@ -1,19 +1,54 @@
 import React, {Fragment, Component} from 'react';
 import { Provider } from 'react-redux';
 import { StatusBar,PermissionsAndroid,Alert,Platform } from 'react-native';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator,  createAppContainer} from 'react-navigation';
 import HomeScreen from './application_code/screens/HomeScreen';
 import ProfileScreen from './application_code/screens/ProfileScreen';
+import CreditCardScreen from './application_code/screens/CreditCardScreen';
 import store from './application_code/store/store.js';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
-const TabNavigator = createStackNavigator({
+const TabNavigator = createBottomTabNavigator({
   Home: {
         screen: HomeScreen, 
         navigationOptions: {
             header: null,
+            title: 'Home',
+            tabBarIcon:<Icon name="home" size={20} color="#000" regular></Icon>,
         },
     },
-  Profile: ProfileScreen,
+  CreditCard: {
+    screen: CreditCardScreen, 
+        navigationOptions: {
+            header: null,
+            title: 'Credit Card',
+            tabBarIcon:<Icon name="credit-card" size={20} color="#000" regular></Icon>,
+        },
+  },
+  Offers: {
+    screen: ProfileScreen, 
+        navigationOptions: {
+            header: null,
+            title: 'Offers',
+            tabBarIcon:<Icon name="gift" size={20} color="#000" regular></Icon>,
+        },
+  },
+  Aboutus: {
+    screen: ProfileScreen, 
+        navigationOptions: {
+            header: null, 
+            title: 'About Us',
+            tabBarIcon:<Icon name="info" size={20} color="#000" regular></Icon>,
+        },
+  },
+},{
+  tabBarOptions: { 
+      activeTintColor: '#282828',
+      inactiveTintColor: 'white',
+      style: {
+            backgroundColor: '#F55044' 
+        }
+    }
 });
 
 const Navigation = createAppContainer(TabNavigator);
