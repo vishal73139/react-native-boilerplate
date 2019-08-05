@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const fixedPaidMessageType = ["Paid","You've spent","debited","Thank you for using","Accepted your request"];
+const fixedPaidMessageType = ["Paid","You've spent","debited","Thank you for using","Accepted your request","Thanks for paying","accepted request"];
 const fixedPaidMessageNoHaveConditionType = ["requested","failed","fail","claim","gift"];
 
 const checkPaidStringInMessage = (message) => {
