@@ -10,9 +10,6 @@ export default HomeScreenHeaderPart = (props) => {
   let rsKey = ['messageMoney'];
   var totalCount = _.sumBy(rsKey, _.partial(_.sumBy, props.messages));
 
-
-console.log(totalCount);
-
 	return (
 	<View style={styles.mainScreenUpperView}>
         <View style={{flex:2}}>
@@ -42,8 +39,10 @@ console.log(totalCount);
           </View>  
         </View>
         <View style={{flex:1,alignItems:'center',justifyContent: 'center'}}>
-          <TouchableOpacity style={{backgroundColor:'white',paddingTop:10,paddingBottom:10,paddingLeft:5,paddingRight:10,borderRadius:10,marginBottom:15}}> 
-          <View style={{flexDirection:'row',alignItems:'center',justifyContent: 'center'}}><EvilIconsIcon name="calendar" size={30} color="#000" regular></EvilIconsIcon><Text>AUG</Text></View>   
+          <TouchableOpacity onPress={()=>{
+            props.openMonthPopup();
+          }} style={{backgroundColor:'white',paddingTop:10,paddingBottom:10,paddingLeft:5,paddingRight:10,borderRadius:10,marginBottom:15}}> 
+          <View style={{flexDirection:'row',alignItems:'center',justifyContent: 'center'}}><EvilIconsIcon name="calendar" size={30} color="#000" regular></EvilIconsIcon><Text>{props.shortMonthformat}</Text></View>   
           </TouchableOpacity>
         </View>
       </View>

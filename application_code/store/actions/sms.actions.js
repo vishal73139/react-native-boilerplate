@@ -9,17 +9,19 @@ export const smsActions = {
 };
 
 
-function loadSms(comingMonth) {
+function loadSms(comingMonth,enddateOfmonth) {
     return dispatch => {
 
         dispatch(sms_loading());
 
         /* List SMS messages matching the filter */ 
 		let convertodate = new Date(comingMonth); 
+		let enddateOfmonthNew = new Date(enddateOfmonth); 
 		var filter = {
 		    box: 'inbox', 
 		    indexFrom: 0,
-		    minDate:convertodate.getTime()
+		    minDate:convertodate.getTime(),
+		    maxDate:enddateOfmonthNew.getTime()
 		};
 
 	    SmsAndroid.list(JSON.stringify(filter), (fail) => {

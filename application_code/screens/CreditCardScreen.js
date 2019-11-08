@@ -17,13 +17,11 @@ class CreditCardScreen extends React.Component {
     super(props);
   }
 
-  componentDidMount(){ 
-    alert('test');
+  componentDidMount(){  
     let firstDateOfMonth = moment().startOf('month').format("YYYY-MM-DD"); 
     this.props.smsActions(firstDateOfMonth);
   }
  
-
   render() {
     const {navigate} = this.props.navigation;
     const currentMonth = moment().startOf('month').format('MMMM');
